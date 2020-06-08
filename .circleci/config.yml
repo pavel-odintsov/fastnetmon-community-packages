@@ -106,7 +106,7 @@ jobs:
       - image: centos:centos7.8.2003
     steps:
       - checkout
-      - run: yum install -y https://storage.googleapis.comfastnetmon_community_packages/centos/7/fastnetmon-1.1.6-1.el7.x86_64.rpm 
+      - run: yum install -y https://storage.googleapis.com/fastnetmon_community_packages/centos/7/fastnetmon-1.1.6-1.el7.x86_64.rpm 
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
