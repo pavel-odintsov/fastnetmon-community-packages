@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y wget
-      - run: wget "https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb?" -ofastnetmon_1.1.6_amd64.deb
+      - run: apt-get install -y curl
+      - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -19,8 +19,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y wget
-      - run: wget "https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb" -ofastnetmon_1.1.6_amd64.deb
+      - run: apt-get install -y curl
+      - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -32,8 +32,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y wget
-      - run: wget "https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb" -ofastnetmon_1.1.6_amd64.deb
+      - run: apt-get install -y curl
+      - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -45,8 +45,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y wget
-      - run: wget "https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb" -ofastnetmon_1.1.6_amd64.deb
+      - run: apt-get install -y curl
+      - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -58,8 +58,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y wget
-      - run: wget "https://storage.googleapis.com/fastnetmon_community_packages/debian/8/fastnetmon_1.1.6_amd64.deb" -ofastnetmon_1.1.6_amd64.deb
+      - run: apt-get install -y curl
+      - run: curl https://storage.googleapis.com/fastnetmon_community_packages/debian/8/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -71,8 +71,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y perl wget
-      - run: wget "https://storage.googleapis.com/fastnetmon_community_packages/debian/9/fastnetmon_1.1.6_amd64.deb" -ofastnetmon_1.1.6_amd64.deb
+      - run: apt-get install -y curl
+      - run: curl https://storage.googleapis.com/fastnetmon_community_packages/debian/9/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -84,8 +84,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y perl wget
-      - run: wget "https://storage.googleapis.com/fastnetmon_community_packages/debian/10/fastnetmon_1.1.6_amd64.deb" -ofastnetmon_1.1.6_amd64.deb
+      - run: apt-get install -y curl
+      - run: curl https://storage.googleapis.com/fastnetmon_community_packages/debian/10/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -96,7 +96,7 @@ jobs:
       - image: centos:centos6.9
     steps:
       - checkout
-      - run: yum install -y "https://storage.googleapis.com/fastnetmon_community_packages/centos/6/fastnetmon-1.1.6-1.el6.x86_64.rpm" 
+      - run: yum install -y https://storage.googleapis.com/fastnetmon_community_packages/centos/6/fastnetmon-1.1.6-1.el6.x86_64.rpm 
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -106,7 +106,7 @@ jobs:
       - image: centos:centos7.8.2003
     steps:
       - checkout
-      - run: yum install -y "https://storage.googleapis.comfastnetmon_community_packages/centos/7/fastnetmon-1.1.6-1.el7.x86_64.rpm" 
+      - run: yum install -y https://storage.googleapis.comfastnetmon_community_packages/centos/7/fastnetmon-1.1.6-1.el7.x86_64.rpm 
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -116,7 +116,7 @@ jobs:
       - image: centos:centos8.1.1911
     steps:
       - checkout
-      - run: yum install -y "https://storage.googleapis.com/fastnetmon_community_packages/centos/8/fastnetmon-1.1.6-1.el8.x86_64.rpm" 
+      - run: yum install -y https://storage.googleapis.com/fastnetmon_community_packages/centos/8/fastnetmon-1.1.6-1.el8.x86_64.rpm 
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
