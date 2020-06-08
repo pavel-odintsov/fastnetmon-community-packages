@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y curl
+      - run: apt-get install -y curl libpcap0.8
       - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y curl
+      - run: apt-get install -y curl libpcap0.8
       - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y curl
+      - run: apt-get install -y curl libpcap0.8
       - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
@@ -45,7 +45,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update; true
-      - run: apt-get install -y curl
+      - run: apt-get install -y curl libpcap0.8
       - run: curl https://storage.googleapis.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb -ofastnetmon_1.1.6_amd64.deb
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
