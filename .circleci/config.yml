@@ -1,0 +1,139 @@
+version: 2.1
+jobs:
+  ubuntu2004:
+    docker:
+      - image: ubuntu:focal-20200423
+    steps:
+      - checkout
+      - run: apt-get update; true
+      - run: apt-get install -y wget
+      - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
+      - run: wget "https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon.conf" -o/etc/fastnetmon.conf
+      - run: dpkg -i fastnetmon_1.1.6_amd64.deb
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  ubuntu1804:
+    docker:
+      - image: ubuntu:bionic-20200403
+    steps:
+      - checkout
+      - run: apt-get update; true
+      - run: apt-get install -y wget
+      - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
+      - run: wget "https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon.conf" -o/etc/fastnetmon.conf
+      - run: dpkg -i fastnetmon_1.1.6_amd64.deb
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  ubuntu1604:
+    docker:
+      - image: ubuntu:xenial-20200326
+    steps:
+      - checkout
+      - run: apt-get update; true
+      - run: apt-get install -y wget
+      - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
+      - run: dpkg -i fastnetmon_1.1.6_amd64.deb
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  ubuntu1404:
+    docker:
+      - image: ubuntu:trusty-20191217
+    steps:
+      - checkout
+      - run: apt-get update; true
+      - run: apt-get install -y wget
+      - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
+      - run: dpkg -i fastnetmon_1.1.6_amd64.deb
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  debian8:
+    docker:
+      - image: debian:jessie-20200514
+    steps:
+      - checkout
+      - run: apt-get update; true
+      - run: apt-get install -y wget
+      - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/debian/8/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
+      - run: dpkg -i fastnetmon_1.1.6_amd64.deb
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  debian9:
+    docker:
+      - image: debian:stretch-20200514
+    steps:
+      - checkout
+      - run: apt-get update; true
+      - run: apt-get install -y perl wget
+      - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/debian/9/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
+      - run: dpkg -i fastnetmon_1.1.6_amd64.deb
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  debian10:
+    docker:
+      - image: debian:buster-20200514
+    steps:
+      - checkout
+      - run: apt-get update; true
+      - run: apt-get install -y perl wget
+      - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/debian/10/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
+      - run: dpkg -i fastnetmon_1.1.6_amd64.deb
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  centos6:
+    docker:
+      - image: centos:centos6.9
+    steps:
+      - checkout
+      - run: yum install -y "https://storage.cloud.google.com/fastnetmon_community_packages/centos/6/fastnetmon-1.1.6-1.el6.x86_64.rpm?organizationId=767084145579" 
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  centos7:
+    docker:
+      - image: centos:centos7.8.2003
+    steps:
+      - checkout
+      - run: yum install -y "https://storage.cloud.google.com/fastnetmon_community_packages/centos/7/fastnetmon-1.1.6-1.el7.x86_64.rpm?organizationId=767084145579" 
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  centos8:
+    docker:
+      - image: centos:centos8.1.1911
+    steps:
+      - checkout
+      - run: yum install -y "https://storage.cloud.google.com/fastnetmon_community_packages/centos/8/fastnetmon-1.1.6-1.el8.x86_64.rpm?organizationId=767084145579" 
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+workflows:
+  version: 2
+  all_distros:
+    jobs:
+      - debian8
+      - debian9
+      - debian10
+      - ubuntu1404
+      - ubuntu1604
+      - ubuntu1804
+      - ubuntu2004
+      - centos6
+      - centos7
+      - centos8
