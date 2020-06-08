@@ -8,7 +8,6 @@ jobs:
       - run: apt-get update; true
       - run: apt-get install -y wget
       - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
-      - run: wget "https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon.conf" -o/etc/fastnetmon.conf
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -22,7 +21,6 @@ jobs:
       - run: apt-get update; true
       - run: apt-get install -y wget
       - run: wget "https://storage.cloud.google.com/fastnetmon_community_packages/ubuntu/14.04/fastnetmon_1.1.6_amd64.deb?organizationId=767084145579" -ofastnetmon_1.1.6_amd64.deb
-      - run: wget "https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon.conf" -o/etc/fastnetmon.conf
       - run: dpkg -i fastnetmon_1.1.6_amd64.deb
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
