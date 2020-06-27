@@ -104,7 +104,7 @@ jobs:
       - image: debian:buster-20200514
     steps:
       - run: apt-get update
-      - run: apt-get install -y fastnetmon
+      - run: apt-get install -y fastnetmon apt-utils
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
