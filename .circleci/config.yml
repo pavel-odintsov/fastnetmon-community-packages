@@ -8,6 +8,8 @@ jobs:
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -20,6 +22,8 @@ jobs:
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -32,6 +36,8 @@ jobs:
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -44,6 +50,8 @@ jobs:
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -57,6 +65,8 @@ jobs:
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -69,6 +79,8 @@ jobs:
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -81,6 +93,8 @@ jobs:
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -94,6 +108,8 @@ jobs:
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -105,6 +121,8 @@ jobs:
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -116,6 +134,8 @@ jobs:
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
@@ -127,6 +147,8 @@ jobs:
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
