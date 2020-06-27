@@ -4,8 +4,7 @@ jobs:
     docker:
       - image: ubuntu:focal-20200423
     steps:
-      - checkout
-      - run: apt-get update; true
+      - run: apt-get update
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -17,8 +16,7 @@ jobs:
     docker:
       - image: ubuntu:bionic-20200403
     steps:
-      - checkout
-      - run: apt-get update; true
+      - run: apt-get update
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -30,8 +28,7 @@ jobs:
     docker:
       - image: ubuntu:xenial-20200326
     steps:
-      - checkout
-      - run: apt-get update; true
+      - run: apt-get update
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -43,8 +40,7 @@ jobs:
     docker:
       - image: ubuntu:trusty-20191217
     steps:
-      - checkout
-      - run: apt-get update; true
+      - run: apt-get update
       - run: apt-get install -y perl wget
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -57,7 +53,7 @@ jobs:
       - image: debian:jessie-20200514
     steps:
       - checkout
-      - run: apt-get update; true
+      - run: apt-get update
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -69,8 +65,7 @@ jobs:
     docker:
       - image: debian:stretch-20200514
     steps:
-      - checkout
-      - run: apt-get update; true
+      - run: apt-get update
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -82,8 +77,20 @@ jobs:
     docker:
       - image: debian:buster-20200514
     steps:
-      - checkout
-      - run: apt-get update; true
+      - run: apt-get update
+      - run: apt-get install -y wget perl
+      - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
+      - run: perl fastnetmon_install.pl
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+  debian10_upgrade_from_repo_version:
+    docker:
+      - image: debian:buster-20200514
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y fastnetmon
       - run: apt-get install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -95,7 +102,6 @@ jobs:
     docker:
       - image: centos:centos6.9
     steps:
-      - checkout
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -107,7 +113,6 @@ jobs:
     docker:
       - image: centos:centos7.8.2003
     steps:
-      - checkout
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -119,7 +124,6 @@ jobs:
     docker:
       - image: centos:centos8.1.1911
     steps:
-      - checkout
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
@@ -134,6 +138,7 @@ workflows:
       - debian8
       - debian9
       - debian10
+      - debian10_upgrade_from_repo_version
       - ubuntu1404
       - ubuntu1604
       - ubuntu1804
