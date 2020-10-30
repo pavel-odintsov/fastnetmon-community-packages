@@ -156,7 +156,7 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
- debian9_ci:
+  debian9_ci:
     docker:
       - image: debian:stretch-20200514
     steps:
