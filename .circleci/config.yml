@@ -10,10 +10,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu2004_ci:
     docker:
       - image: ubuntu:focal-20200423
@@ -24,10 +24,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu1804:
     docker:
       - image: ubuntu:bionic-20200403
@@ -38,10 +38,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu1804_ci:
     docker:
       - image: ubuntu:bionic-20200403
@@ -56,6 +56,7 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu1604:
     docker:
       - image: ubuntu:xenial-20200326
@@ -66,10 +67,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu1604_ci:
     docker:
       - image: ubuntu:xenial-20200326
@@ -80,10 +81,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu1404:
     docker:
       - image: ubuntu:trusty-20191217
@@ -94,10 +95,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu1404_ci:
     docker:
       - image: ubuntu:trusty-20191217
@@ -108,10 +109,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian8:
     docker:
       - image: debian:jessie-20200514
@@ -123,10 +124,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian8_ci:
     docker:
       - image: debian:jessie-20200514
@@ -138,10 +139,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian9:
     docker:
       - image: debian:stretch-20200514
@@ -152,10 +153,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian9_ci:
     docker:
       - image: debian:stretch-20200514
@@ -166,10 +167,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian10:
     docker:
       - image: debian:buster-20200514
@@ -180,10 +181,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian10_ci:
     docker:
       - image: debian:buster-20200514
@@ -194,10 +195,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian10_upgrade_from_repo_version:
     docker:
       - image: debian:buster-20200514
@@ -209,10 +210,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: dpkg -l |grep fastnetmon
   centos6:
     docker:
@@ -223,10 +224,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos6_ci:
     docker:
       - image: centos:centos6.9
@@ -236,10 +237,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos7:
     docker:
       - image: centos:centos7.8.2003
@@ -249,10 +250,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos7_ci:
     docker:
       - image: centos:centos7.8.2003
@@ -262,10 +263,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos8:
     docker:
       - image: centos:centos8.1.1911
@@ -275,10 +276,10 @@ jobs:
       - run: perl fastnetmon_install.pl
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos8_ci:
     docker:
       - image: centos:centos8.1.1911
@@ -288,10 +289,10 @@ jobs:
       - run: perl fastnetmon_install.pl --install-ci-packages
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: ldd /opt/fastnetmon/fastnetmon
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
 
 workflows:
   version: 2
