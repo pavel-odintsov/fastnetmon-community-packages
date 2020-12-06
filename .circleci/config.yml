@@ -219,6 +219,9 @@ jobs:
     docker:
       - image: centos:centos6.9
     steps:
+      - run: sed -i '/mirrorlist/d' /etc/yum.repos.d/CentOS-Base.repo
+      - run: sed -i 's/#baseurl/baseurl/' /etc/yum.repos.d/CentOS-Base.repo
+      - run: sed -i 's/mirror.centos.org/vault.centos.org/' /etc/yum.repos.d/CentOS-Base.repo
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
       - run: perl fastnetmon_install.pl
