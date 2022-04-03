@@ -112,7 +112,7 @@ jobs:
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition -developer_version
       - store_artifacts:
@@ -144,7 +144,7 @@ jobs:
       - checkout
       - run: apt-get update
       - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition -developer_version
       - store_artifacts:
@@ -255,7 +255,7 @@ jobs:
       - run: sed -i 's/#baseurl/baseurl/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sed -i 's/mirror.centos.org/vault.centos.org/' /etc/yum.repos.d/CentOS-Base.repo
       - run: yum install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition -developer_version
       - store_artifacts:
@@ -283,7 +283,7 @@ jobs:
       - image: centos:centos7
     steps:
       - run: yum install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition -developer_version
       - store_artifacts:
