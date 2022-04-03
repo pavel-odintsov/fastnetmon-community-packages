@@ -285,7 +285,7 @@ jobs:
       - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos8:
     docker:
-      - image: centos:centos8
+      - image: almalinux:8
     steps:
       - run: yum install -y wget
       - run: wget https://install.fastnetmon.com/installer -Oinstaller
@@ -299,7 +299,7 @@ jobs:
       - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos8_ci:
     docker:
-      - image: centos:centos8
+      - image: almalinux:8
     steps:
       - run: yum install -y wget perl
       - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
