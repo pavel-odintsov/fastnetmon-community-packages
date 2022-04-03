@@ -5,9 +5,10 @@ jobs:
       - image: ubuntu:focal-20200423
     steps:
       - run: apt-get update
-      - run: apt-get install -y perl wget
-      - run: wget https://raw.githubusercontent.com/pavel-odintsov/fastnetmon/master/src/fastnetmon_install.pl -Ofastnetmon_install.pl
-      - run: perl fastnetmon_install.pl
+      - run: apt-get install -y wget
+      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: sudo chmod +x installer
+      - run: sudo ./installer -install_community_edition
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
       - run: ldd /opt/fastnetmon/fastnetmon
