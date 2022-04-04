@@ -30,6 +30,21 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
+  ubuntu2204_ci:
+    docker:
+      - image: ubuntu:jammy
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y wget
+      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: chmod +x installer
+      - run: ./installer -install_community_edition -developer_version
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon/fastnetmon_client
+      - run: ldd /opt/fastnetmon/fastnetmon_api_client
+      - run: /opt/fastnetmon/fastnetmon --configuration_check
   ubuntu1804:
     docker:
       - image: ubuntu:bionic
@@ -337,6 +352,7 @@ workflows:
       - ubuntu1804_ci
       - ubuntu2004
       - ubuntu2004_ci
+      - ubuntu2204_ci
       - centos6
       - centos7
       - centos7_ci
