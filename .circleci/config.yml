@@ -335,14 +335,6 @@ jobs:
 workflows:
   version: 2
   all_distros:
-   triggers:
-     - schedule:
-         # Every day, 12:30Z.
-         cron: "30 12 * * *"
-         filters:
-           branches:
-             only:
-               - master
     jobs:
       - debian8
       - debian9
