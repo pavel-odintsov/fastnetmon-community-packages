@@ -334,6 +334,37 @@ jobs:
 
 workflows:
   version: 2
+  all_distros_nightly:
+    triggers:
+      - schedule:
+          cron: "0 4 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - debian8
+      - debian9
+      - debian9_ci
+      - debian10
+      - debian10_ci
+      - debian10_upgrade_from_repo_version
+      - debian11
+      - debian11_ci
+      - ubuntu1404
+      - ubuntu1404_ci
+      - ubuntu1604
+      - ubuntu1604_ci
+      - ubuntu1804
+      - ubuntu1804_ci
+      - ubuntu2004
+      - ubuntu2004_ci
+      - ubuntu2204_ci
+      - centos6
+      - centos7
+      - centos7_ci
+      - centos8
+      - centos8_ci
   all_distros:
     jobs:
       - debian8
