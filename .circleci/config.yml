@@ -6,10 +6,13 @@ jobs:
     parameters:
       docker_image:
         type: string
+      wget_arguments:
+        type: string
+        default: ""
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition
       - store_artifacts:
@@ -317,6 +320,7 @@ workflows:
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
+          wget_arguments: "--no-check-certificate"
       - build_ubuntu:
           name: "Ubuntu 16.04"
           docker_image: ubuntu:xenial
@@ -344,6 +348,7 @@ workflows:
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
+          wget_arguments: "--no-check-certificate"
       - build_ubuntu:
           name: "Ubuntu 16.04"
           docker_image: ubuntu:xenial
