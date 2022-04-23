@@ -48,36 +48,6 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
-  debian9_ci:
-    docker:
-      - image: debian:stretch
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  debian10_ci:
-    docker:
-      - image: debian:buster
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian10_upgrade_from_repo_version:
     docker:
       - image: debian:buster
@@ -95,21 +65,6 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: dpkg -l |grep fastnetmon
-  debian11_ci:
-    docker:
-      - image: debian:bullseye
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos6:
     docker:
       - image: centos:centos6
@@ -212,6 +167,23 @@ workflows:
       - build_debian:
           name: "Debian 11"
           docker_image: debian:bullseye
+      - build_debian:
+          name: "Debian 8 dev"
+          docker_image: debian:jessie
+          wget_arguments: "--no-check-certificate
+          installer_arguments: "-developer_version"
+      - build_debian:
+          name: "Debian 9 dev"
+          docker_image: debian:stretch
+          installer_arguments: "-developer_version"
+      - build_debian:
+          name: "Debian 10 dev"
+          docker_image: debian:buster
+          installer_arguments: "-developer_version"
+      - build_debian:
+          name: "Debian 11 dev"
+          docker_image: debian:bullseye
+          installer_arguments: "-developer_version"
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
@@ -253,10 +225,7 @@ workflows:
       - centos8_ci
   all_distros:
     jobs:
-      - debian9_ci
-      - debian10_ci
       - debian10_upgrade_from_repo_version
-      - debian11_ci
       - build_debian:
           name: "Debian 8"
           docker_image: debian:jessie
@@ -270,6 +239,23 @@ workflows:
       - build_debian:
           name: "Debian 11"
           docker_image: debian:bullseye
+      - build_debian:
+          name: "Debian 8 dev"
+          docker_image: debian:jessie
+          wget_arguments: "--no-check-certificate
+          installer_arguments: "-developer_version"
+      - build_debian:
+          name: "Debian 9 dev"
+          docker_image: debian:stretch
+          installer_arguments: "-developer_version"
+      - build_debian:
+          name: "Debian 10 dev"
+          docker_image: debian:buster
+          installer_arguments: "-developer_version"
+      - build_debian:
+          name: "Debian 11 dev"
+          docker_image: debian:bullseye
+          installer_arguments: "-developer_version"
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
