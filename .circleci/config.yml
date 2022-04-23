@@ -24,30 +24,24 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
-  debian8:
+  build_debian:
     docker:
-      - image: debian:jessie
+      - image: << parameters.docker_image >>
+    parameters:
+      docker_image:
+        type: string
+      wget_arguments:
+        type: string
+        default: ""
+      installer_arguments:
+        type: string
+        default: ""
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
-      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
-      - run: ./installer -install_community_edition
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  debian9:
-    docker:
-      - image: debian:stretch
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition
+      - run: ./installer -install_community_edition << parameters.installer_arguments >>
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -63,21 +57,6 @@ jobs:
       - run: wget https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  debian10:
-    docker:
-      - image: debian:buster
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -116,21 +95,6 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: dpkg -l |grep fastnetmon
-  debian11:
-    docker:
-      - image: debian:bullseye
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
   debian11_ci:
     docker:
       - image: debian:bullseye
@@ -231,14 +195,23 @@ workflows:
               only:
                 - master
     jobs:
-      - debian8
-      - debian9
       - debian9_ci
-      - debian10
       - debian10_ci
       - debian10_upgrade_from_repo_version
-      - debian11
       - debian11_ci
+      - build_debian:
+          name: "Debian 8"
+          docker_image: debian:jessie
+          wget_arguments: "--no-check-certificate"
+      - build_debian:
+          name: "Debian 9"
+          docker_image: debian:stretch
+      - build_debian:
+          name: "Debian 10"
+          docker_image: debian:buster
+      - build_debian:
+          name: "Debian 11"
+          docker_image: debian:bullseye
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
@@ -280,14 +253,23 @@ workflows:
       - centos8_ci
   all_distros:
     jobs:
-      - debian8
-      - debian9
       - debian9_ci
-      - debian10
       - debian10_ci
       - debian10_upgrade_from_repo_version
-      - debian11
       - debian11_ci
+      - build_debian:
+          name: "Debian 8"
+          docker_image: debian:jessie
+          wget_arguments: "--no-check-certificate"
+      - build_debian:
+          name: "Debian 9"
+          docker_image: debian:stretch
+      - build_debian:
+          name: "Debian 10"
+          docker_image: debian:buster
+      - build_debian:
+          name: "Debian 11"
+          docker_image: debian:bullseye
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
