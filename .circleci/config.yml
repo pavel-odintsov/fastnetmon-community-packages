@@ -82,20 +82,6 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
-  centos7:
-    docker:
-      - image: centos:centos7
-    steps:
-      - run: yum install -y wget
-      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
   centos7_ci:
     docker:
       - image: centos:centos7
@@ -104,20 +90,6 @@ jobs:
       - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  centos8:
-    docker:
-      - image: almalinux:8
-    steps:
-      - run: yum install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -219,9 +191,14 @@ workflows:
           docker_image: ubuntu:jammy
           installer_arguments: "-developer_version"
       - centos6
-      - centos7
+      - build_centos:
+          name: "CentOS 7"
+          docker_image: centos:centos7
+          wget_arguments: "--no-check-certificate"
+      - build_centos:
+          name: "CentOS 8"
+          docker_image: almalinux:8
       - centos7_ci
-      - centos8
       - centos8_ci
   all_distros:
     jobs:
@@ -291,7 +268,12 @@ workflows:
           docker_image: ubuntu:jammy
           installer_arguments: "-developer_version"
       - centos6
-      - centos7
+      - build_centos:
+          name: "CentOS 7"
+          docker_image: centos:centos7
+          wget_arguments: "--no-check-certificate"
+      - build_centos:
+          name: "CentOS 8"
+          docker_image: almalinux:8
       - centos7_ci
-      - centos8
       - centos8_ci
