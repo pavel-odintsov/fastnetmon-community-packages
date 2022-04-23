@@ -9,88 +9,15 @@ jobs:
       wget_arguments:
         type: string
         default: ""
+      installer_arguments:
+        type: string
+        default: ""
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
       - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer -Oinstaller
       - run: chmod +x installer
-      - run: ./installer -install_community_edition
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  ubuntu2004_ci:
-    docker:
-      - image: ubuntu:focal
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  ubuntu2204_ci:
-    docker:
-      - image: ubuntu:jammy
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  ubuntu1804_ci:
-    docker:
-      - image: ubuntu:bionic
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  ubuntu1604_ci:
-    docker:
-      - image: ubuntu:xenial
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-  ubuntu1404_ci:
-    docker:
-      - image: ubuntu:trusty
-    steps:
-      - run: apt-get update
-      - run: apt-get install -y wget
-      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition -developer_version
+      - run: ./installer -install_community_edition << parameters.installer_arguments >>
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
       - run: ldd /opt/fastnetmon/fastnetmon
@@ -312,11 +239,6 @@ workflows:
       - debian10_upgrade_from_repo_version
       - debian11
       - debian11_ci
-      - ubuntu1404_ci
-      - ubuntu1604_ci
-      - ubuntu1804_ci
-      - ubuntu2004_ci
-      - ubuntu2204_ci
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
@@ -330,6 +252,27 @@ workflows:
       - build_ubuntu:
           name: "Ubuntu 20.04"
           docker_image: ubuntu:focal
+      - build_ubuntu:
+          name: "Ubuntu 14.04 dev"
+          docker_image: ubuntu:trusty
+          wget_arguments: "--no-check-certificate"
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 16.04 dev"
+          docker_image: ubuntu:xenial
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 18.04 dev"
+          docker_image: ubuntu:bionic
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 20.04 dev"
+          docker_image: ubuntu:focal
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 22.04 dev"
+          docker_image: ubuntu:jammy
+          installer_arguments: "-developer_version"
       - centos6
       - centos7
       - centos7_ci
@@ -358,11 +301,27 @@ workflows:
       - build_ubuntu:
           name: "Ubuntu 20.04"
           docker_image: ubuntu:focal
-      - ubuntu1404_ci
-      - ubuntu1604_ci
-      - ubuntu1804_ci
-      - ubuntu2004_ci
-      - ubuntu2204_ci
+      - build_ubuntu:
+          name: "Ubuntu 14.04 dev"
+          docker_image: ubuntu:trusty
+          wget_arguments: "--no-check-certificate"
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 16.04 dev"
+          docker_image: ubuntu:xenial
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 18.04 dev"
+          docker_image: ubuntu:bionic
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 20.04 dev"
+          docker_image: ubuntu:focal
+          installer_arguments: "-developer_version"
+      - build_ubuntu:
+          name: "Ubuntu 22.04 dev"
+          docker_image: ubuntu:jammy
+          installer_arguments: "-developer_version"
       - centos6
       - centos7
       - centos7_ci
