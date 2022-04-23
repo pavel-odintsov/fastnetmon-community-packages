@@ -122,10 +122,7 @@ workflows:
               only:
                 - master
     jobs:
-      - debian9_ci
-      - debian10_ci
       - debian10_upgrade_from_repo_version
-      - debian11_ci
       - build_debian:
           name: "Debian 8"
           docker_image: debian:jessie
