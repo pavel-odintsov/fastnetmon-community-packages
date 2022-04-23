@@ -142,7 +142,7 @@ workflows:
       - build_debian:
           name: "Debian 8 dev"
           docker_image: debian:jessie
-          wget_arguments: "--no-check-certificate
+          wget_arguments: "--no-check-certificate"
           installer_arguments: "-developer_version"
       - build_debian:
           name: "Debian 9 dev"
