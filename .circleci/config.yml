@@ -24,6 +24,7 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: /opt/fastnetmon/fastnetmon_client --help
   build_debian:
     docker:
       - image: << parameters.docker_image >>
@@ -48,6 +49,7 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: /opt/fastnetmon/fastnetmon_client --help
   debian10_upgrade_from_repo_version:
     docker:
       - image: debian:buster
@@ -64,6 +66,7 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: /opt/fastnetmon/fastnetmon_client --help
       - run: dpkg -l |grep fastnetmon
   build_centos:
     docker:
@@ -88,6 +91,7 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: /opt/fastnetmon/fastnetmon_client --help
   centos6:
     docker:
       - image: centos:centos6
@@ -105,6 +109,7 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_client
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
+      - run: /opt/fastnetmon/fastnetmon_client --help
 
 workflows:
   version: 2
