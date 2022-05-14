@@ -241,6 +241,9 @@ workflows:
           name: "Ubuntu 20.04"
           docker_image: ubuntu:focal
       - build_ubuntu:
+          name: "Ubuntu 22.04"
+          docker_image: ubuntu:jammy
+      - build_ubuntu:
           name: "Ubuntu 14.04 dev"
           docker_image: ubuntu:trusty
           wget_arguments: "--no-check-certificate"
