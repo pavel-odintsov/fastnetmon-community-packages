@@ -15,7 +15,7 @@ jobs:
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
-      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition << parameters.installer_arguments >>
       - store_artifacts:
@@ -40,7 +40,7 @@ jobs:
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
-      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?debianrandom1 -Oinstaller
+      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition << parameters.installer_arguments >>
       - store_artifacts:
@@ -57,7 +57,7 @@ jobs:
       - run: apt-get update
       - run: apt-get install -y fastnetmon apt-utils
       - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition
       - store_artifacts:
@@ -82,7 +82,7 @@ jobs:
         default: ""
     steps:
       - run: yum install -y wget
-      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition << parameters.installer_arguments >>
       - store_artifacts:
@@ -100,7 +100,7 @@ jobs:
       - run: sed -i 's/#baseurl/baseurl/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sed -i 's/mirror.centos.org/vault.centos.org/' /etc/yum.repos.d/CentOS-Base.repo
       - run: yum install -y wget
-      - run: wget --no-check-certificate https://install.fastnetmon.com/installer -Oinstaller
+      - run: wget --no-check-certificate https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition
       - store_artifacts:
