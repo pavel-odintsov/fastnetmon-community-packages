@@ -199,6 +199,10 @@ workflows:
           name: "CentOS 8 dev"
           docker_image: almalinux:8
           installer_arguments: "-developer_version"
+      - build_centos:
+          name: "CentOS 9 dev"
+          docker_image: almalinux:9
+          installer_arguments: "-developer_version"
   all_distros:
     jobs:
       - debian10_upgrade_from_repo_version
@@ -281,3 +285,8 @@ workflows:
           name: "CentOS 8 dev"
           docker_image: almalinux:8
           installer_arguments: "-developer_version"
+      - build_centos:
+          name: "CentOS 9 dev"
+          docker_image: almalinux:9
+          installer_arguments: "-developer_version"
+
