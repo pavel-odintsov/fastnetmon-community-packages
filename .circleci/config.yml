@@ -110,6 +110,20 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: /opt/fastnetmon/fastnetmon_client --help
+  build_fedora:
+    docker:
+      - image: << parameters.docker_image >>
+    parameters:
+      docker_image:
+        type: string
+    steps:
+      - run: dnf install -y fastnetmon
+
+      - run: ldd /usr/bin/fastnetmon
+      - run: ldd /usr/bin//fastnetmon_client
+      - run: ldd /usr/bin/fastnetmon_api_client
+      - run: /usr/bin/fastnetmon --configuration_check
+      - run: /usr/bin/fastnetmon_client --help
 
 workflows:
   version: 2
@@ -203,6 +217,9 @@ workflows:
           name: "CentOS 9 dev"
           docker_image: almalinux:9
           installer_arguments: "-developer_version"
+      - build_fedora:
+          name: "Fedora Rawhide upstream"
+          docker_image: fedora:rawhide
   all_distros:
     jobs:
       - debian10_upgrade_from_repo_version
@@ -289,4 +306,7 @@ workflows:
           name: "CentOS 9 dev"
           docker_image: almalinux:9
           installer_arguments: "-developer_version"
+      - build_fedora:
+          name: "Fedora Rawhide upstream"
+          docker_image: fedora:rawhide
 
