@@ -118,11 +118,10 @@ jobs:
         type: string
     steps:
       - run: dnf install -y fastnetmon
-
-      - run: ldd /usr/bin/fastnetmon
-      - run: ldd /usr/bin//fastnetmon_client
+      - run: ldd /usr/sbin/fastnetmon
+      - run: ldd /usr/bin/fastnetmon_client
       - run: ldd /usr/bin/fastnetmon_api_client
-      - run: /usr/bin/fastnetmon --configuration_check
+      - run: /usr/sbin/fastnetmon --configuration_check
       - run: /usr/bin/fastnetmon_client --help
 
 workflows:
