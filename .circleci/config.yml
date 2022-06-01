@@ -50,6 +50,21 @@ jobs:
       - run: ldd /opt/fastnetmon/fastnetmon_api_client
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: /opt/fastnetmon/fastnetmon_client --help
+  build_debian_upstream:
+    docker:
+      - image: << parameters.docker_image >>
+    parameters:
+      docker_image:
+        type: string
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y fastnetmon
+      - run: ldd /usr/sbin/fastnetmon
+      - run: ldd /usr/bin/fastnetmon_client
+      - run: ldd /usr/bin/fastnetmon_api_client
+      - run: /usr/sbin/fastnetmon --configuration_check
+      - run: /usr/bin/fastnetmon_client --help
+
   debian10_upgrade_from_repo_version:
     docker:
       - image: debian:buster
@@ -157,6 +172,9 @@ workflows:
           name: "Debian 10 dev"
           docker_image: debian:buster
           installer_arguments: "-developer_version"
+      - build_debian_upstream:
+          name: "Debian Sid Upstream"
+          docker_image: debian:sid
       - build_debian:
           name: "Debian 11 dev"
           docker_image: debian:bullseye
@@ -247,6 +265,9 @@ workflows:
           name: "Debian 11 dev"
           docker_image: debian:bullseye
           installer_arguments: "-developer_version"
+      - build_debian_upstream:
+          name: "Debian Sid Upstream"
+          docker_image: debian:sid
       - build_ubuntu:
           name: "Ubuntu 14.04"
           docker_image: ubuntu:trusty
