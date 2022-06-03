@@ -119,11 +119,11 @@ jobs:
       - run: ./installer -install_community_edition
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: ldd /usr/bin/fastnetmon
-      - run: ldd /usr/bin/fastnetmon_client
-      - run: ldd /usr/bin/fastnetmon_api_client
-      - run: /usr/bin/fastnetmon --configuration_check
-      - run: /usr/bin/fastnetmon_client --help
+      - run: ldd /opt/fastnetmon/fastnetmon
+      - run: ldd /opt/fastnetmon_client
+      - run: ldd /opt/fastnetmon_api_client
+      - run: /opt/fastnetmon --configuration_check
+      - run: /opt/fastnetmon_client --help
   build_fedora:
     docker:
       - image: << parameters.docker_image >>
