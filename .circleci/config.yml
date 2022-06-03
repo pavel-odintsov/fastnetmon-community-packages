@@ -45,11 +45,11 @@ jobs:
       - run: ./installer -install_community_edition << parameters.installer_arguments >>
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-      - run: /opt/fastnetmon/fastnetmon_client --help
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon_client
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon_api_client
+      - run: /opt/fastnetmon-community/app/bin/fastnetmon --configuration_check
+      - run: /opt/fastnetmon-community/app/bin/fastnetmon_client --help
   build_debian_upstream:
     docker:
       - image: << parameters.docker_image >>
@@ -76,11 +76,11 @@ jobs:
       - run: ./installer -install_community_edition
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-      - run: /opt/fastnetmon/fastnetmon_client --help
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon_client
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon_api_client
+      - run: /opt/fastnetmon-community/app/bin/fastnetmon --configuration_check
+      - run: /opt/fastnetmon-community/app/bin/fastnetmon_client --help
       - run: dpkg -l |grep fastnetmon
   build_centos:
     docker:
@@ -101,11 +101,11 @@ jobs:
       - run: ./installer -install_community_edition << parameters.installer_arguments >>
       - store_artifacts:
           path: /tmp/fastnetmon_install.log
-      - run: ldd /opt/fastnetmon/fastnetmon
-      - run: ldd /opt/fastnetmon/fastnetmon_client
-      - run: ldd /opt/fastnetmon/fastnetmon_api_client
-      - run: /opt/fastnetmon/fastnetmon --configuration_check
-      - run: /opt/fastnetmon/fastnetmon_client --help
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon_client
+      - run: ldd /opt/fastnetmon-community/app/bin/fastnetmon_api_client
+      - run: /opt/fastnetmon-community/app/bin/fastnetmon --configuration_check
+      - run: /opt/fastnetmon-community/app/bin/fastnetmon_client --help
   centos6:
     docker:
       - image: centos:centos6
