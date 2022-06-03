@@ -61,7 +61,6 @@ jobs:
       - run: apt-get install -y fastnetmon
       - run: ldd /usr/sbin/fastnetmon
       - run: ldd /usr/bin/fastnetmon_client
-      - run: ldd /usr/bin/fastnetmon_api_client
       - run: /usr/sbin/fastnetmon --configuration_check
       - run: /usr/bin/fastnetmon_client --help
 
