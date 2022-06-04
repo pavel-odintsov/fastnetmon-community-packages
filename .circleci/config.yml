@@ -232,11 +232,11 @@ workflows:
           docker_image: ubuntu:jammy
           installer_arguments: "-developer_version"
       - centos6
-      - build_centos:
+      - build_centos_legacy:
           name: "CentOS 7"
           docker_image: centos:centos7
           wget_arguments: "--no-check-certificate"
-      - build_centos:
+      - build_centos_legacy:
           name: "CentOS 8"
           docker_image: almalinux:8
       - build_centos:
