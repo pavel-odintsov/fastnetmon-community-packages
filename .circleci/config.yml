@@ -48,9 +48,6 @@ jobs:
   build_ubuntu_1404:
     docker:
       - image: ubuntu:trusty
-    parameters:
-      docker_image:
-        type: string
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
