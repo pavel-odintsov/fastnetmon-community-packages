@@ -149,18 +149,26 @@ jobs:
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: /opt/fastnetmon/fastnetmon_client --help
   build_fedora:
-    docker:
-      - image: << parameters.docker_image >>
+    machine:
+      image: ubuntu-2004:current
     parameters:
       docker_image:
         type: string
     steps:
-      - run: dnf install -y fastnetmon
-      - run: ldd /usr/sbin/fastnetmon
-      - run: ldd /usr/bin/fastnetmon_client
-      - run: ldd /usr/bin/fastnetmon_api_client
-      - run: /usr/sbin/fastnetmon --configuration_check
-      - run: /usr/bin/fastnetmon_client --help
+      - run:
+          name: "Start Docker with systemd enabled in container"
+          command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN --name linux_systemd_container << parameters.docker_image >> /sbin/init
+      - run: sudo docker ps
+      - run: sudo docker exec -it linux_systemd_container systemctl status --no-pager
+      - run: sudo docker exec -it linux_systemd_container dnf install -y fiastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl enable fastnetomn
+      - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager 
+      - run: sudo docker exec -it linux_systemd_container ldd /usr/sbin/fastnetmon
+      - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
+      - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_api_client
+      - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
+      - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
 
 workflows:
   version: 2
