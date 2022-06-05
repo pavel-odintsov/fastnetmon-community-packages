@@ -32,18 +32,26 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon --configuration_check
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
   build_debian_upstream:
-    docker:
-      - image: << parameters.docker_image >>
+    machine:
+      image: ubuntu-2004:current
     parameters:
       docker_image:
         type: string
     steps:
-      - run: apt-get update
-      - run: apt-get install -y fastnetmon
-      - run: ldd /usr/sbin/fastnetmon
-      - run: ldd /usr/bin/fastnetmon_client
-      - run: /usr/sbin/fastnetmon --configuration_check
-      - run: /usr/bin/fastnetmon_client --help
+      - run:
+          name: "Prepare image with systemd enabled"
+          command: echo -e "FROM << parameters.docker_image >>\nENV DEBIAN_FRONTEND noninteractive\nRUN apt-get update; apt-get install -y systemd systemd-sysv; \nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag debian_systemd -
+      - run:
+          name: "Deploy new systemd enabled image"
+          command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
+      - run: sudo docker ps
+      - run: sudo docker exec -it linux_systemd_container apt-get update
+      - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
+      - run: sudo docker exec -it linux_systemd_container ldd /usr/sbin/fastnetmon
+      - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
+      - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
+      - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
 
   build_ubuntu_1404:
     docker:
