@@ -45,6 +45,26 @@ jobs:
       - run: /usr/sbin/fastnetmon --configuration_check
       - run: /usr/bin/fastnetmon_client --help
 
+  build_ubuntu_1404:
+    docker:
+      - image: ubuntu:trusty
+    parameters:
+      docker_image:
+        type: string
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y wget
+      - run: wget --no-check-certificate https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: chmod +x installer
+      - run: ./installer -install_community_edition
+      - store_artifacts:
+          path: /tmp/fastnetmon_install.log
+      - run: ldd /usr/bin/fastnetmon
+      - run: ldd /usr/bin/fastnetmon_client
+      - run: ldd /usr/bin/fastnetmon_api_client
+      - run: /usr/bin/fastnetmon --configuration_check
+      - run: /usr/bin/fastnetmon_client --help
+
   debian10_upgrade_from_repo_version:
     docker:
       - image: debian:buster
@@ -194,10 +214,8 @@ workflows:
           name: "Debian 11 dev"
           docker_image: debian:bullseye
           installer_arguments: "-developer_version"
-      - build_debian:
+      - build_ubuntu_1404:
           name: "Ubuntu 14.04"
-          docker_image: ubuntu:trusty
-          wget_arguments: "--no-check-certificate"
       - build_debian:
           name: "Ubuntu 16.04"
           docker_image: ubuntu:xenial
@@ -278,10 +296,8 @@ workflows:
       - build_debian_upstream:
           name: "Debian Sid Upstream"
           docker_image: debian:sid
-      - build_debian:
+      - build_ubuntu_1404:
           name: "Ubuntu 14.04"
-          docker_image: ubuntu:trusty
-          wget_arguments: "--no-check-certificate"
       - build_debian:
           name: "Ubuntu 16.04"
           docker_image: ubuntu:xenial
