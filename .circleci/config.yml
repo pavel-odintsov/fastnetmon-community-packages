@@ -114,8 +114,8 @@ jobs:
       - run: /opt/fastnetmon/fastnetmon --configuration_check
       - run: /opt/fastnetmon/fastnetmon_client --help
   build_centos:
-    docker:
-      - image: << parameters.docker_image >>
+    machine:
+      image: ubuntu-2004:current
     parameters:
       docker_image:
         type: string
@@ -126,17 +126,17 @@ jobs:
         type: string
         default: ""
     steps:
-      - run: yum install -y wget
-      - run: wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
-      - run: chmod +x installer
-      - run: ./installer -install_community_edition << parameters.installer_arguments >>
-      - store_artifacts:
-          path: /tmp/fastnetmon_install.log
-      - run: ldd /usr/bin/fastnetmon
-      - run: ldd /usr/bin/fastnetmon_client
-      - run: ldd /usr/bin/fastnetmon_api_client
-      - run: /usr/bin/fastnetmon --configuration_check
-      - run: /usr/bin/fastnetmon_client --help
+      - run: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
+      - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
+      - run: sudo docker exec --env -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
+      - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition << parameters.installer_arguments >>
+      - run: sudo docker exec --env -it linux_systemd_container systemctl status fastnetmon --no-pager
+      - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon
+      - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon_client
+      - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon_api_client
+      - run: sudo docker exec --env -it linux_systemd_container /usr/bin/fastnetmon --configuration_check
+      - run: sudo docker exec --env -it linux_systemd_container /usr/bin/fastnetmon_client --help
   centos6:
     docker:
       - image: centos:centos6
