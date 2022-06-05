@@ -47,6 +47,7 @@ jobs:
       - run: sudo docker ps
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec -it linux_systemd_container ldd /usr/sbin/fastnetmon
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
