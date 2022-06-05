@@ -157,7 +157,7 @@ jobs:
     steps:
       - run:
           name: "Prepare image with systemd enabled"
-          command: echo -e "FROM << parameters.docker_image >>\nRUN dns install -y systemd; \nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag fedora_systemd - 
+          command: echo -e "FROM << parameters.docker_image >>\nRUN dnf install -y systemd; \nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag fedora_systemd - 
       - run:
           name: "Start Docker with systemd enabled in container"
           command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN --name linux_systemd_container fedora_systemd /sbin/init
