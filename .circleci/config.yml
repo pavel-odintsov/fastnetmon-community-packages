@@ -269,8 +269,18 @@ workflows:
           docker_image: almalinux:9
           installer_arguments: "-developer_version"
       - build_fedora:
+          name: "Fedora 35 upstream"
+          docker_image: fedora:36
+      - build_fedora:
+          name: "Fedora 36 upstream"
+          docker_image: fedora:36
+      - build_fedora:
+          name: "Fedora 37 upstream"
+          docker_image: fedora:37
+      - build_fedora:
           name: "Fedora Rawhide upstream"
           docker_image: fedora:rawhide
+
   all_distros:
     jobs:
       - debian10_upgrade_from_repo_version
@@ -354,6 +364,16 @@ workflows:
           docker_image: almalinux:9
           installer_arguments: "-developer_version"
       - build_fedora:
+          name: "Fedora 35 upstream"
+          docker_image: fedora:36
+      - build_fedora:
+          name: "Fedora 36 upstream"
+          docker_image: fedora:36
+      - build_fedora:
+          name: "Fedora 37 upstream"
+          docker_image: fedora:37
+      - build_fedora:
           name: "Fedora Rawhide upstream"
           docker_image: fedora:rawhide
+
 
