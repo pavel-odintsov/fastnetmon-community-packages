@@ -53,7 +53,28 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
       - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
-
+  build_debian_bullseye_backports:
+    machine:
+      image: ubuntu-2004:current
+    parameters:
+      docker_image:
+        type: string
+    steps:
+      - run:
+          name: "Prepare image with systemd enabled"
+          command: echo -e "FROM << parameters.docker_image >>\nENV DEBIAN_FRONTEND noninteractive\nRUN apt-get update; apt-get install -y systemd systemd-sysv; \nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag debian_systemd -
+      - run:
+          name: "Deploy new systemd enabled image"
+          command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
+      - run: sudo docker ps
+      - run: sudo docker exec -it linux_systemd_container apt-get update
+      - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
+      - run: sudo docker exec -it linux_systemd_container ldd /usr/sbin/fastnetmon
+      - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
+      - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
+      - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
   build_ubuntu_1404:
     docker:
       - image: ubuntu:trusty
@@ -217,6 +238,9 @@ workflows:
       - build_debian_upstream:
           name: "Debian Sid Upstream"
           docker_image: debian:sid
+      - build_debian_bullseye_backports:
+          name: "Debian 11 backports"
+          docker_image: debian:bullseye
       - build_debian:
           name: "Debian 11 dev"
           docker_image: debian:bullseye
@@ -313,6 +337,9 @@ workflows:
       - build_debian_upstream:
           name: "Debian Sid Upstream"
           docker_image: debian:sid
+      - build_debian_bullseye_backports:
+          name: "Debian 11 backports"
+          docker_image: debian:bullseye
       - build_ubuntu_1404:
           name: "Ubuntu 14.04"
       - build_debian:
