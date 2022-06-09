@@ -67,6 +67,7 @@ jobs:
           name: "Deploy new systemd enabled image"
           command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
       - run: sudo docker ps
+      - run: echo "deb http://deb.debian.org/debian bullseye-backports main" | sudo docker exec -it linux_systemd_container tee /etc/apt/sources.list.d/backports.list
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
