@@ -186,7 +186,7 @@ workflows:
   all_distros_nightly:
     triggers:
       - schedule:
-          cron: "0 4 * * *"
+          cron: "30 2 * * *"
           filters:
             branches:
               only:
