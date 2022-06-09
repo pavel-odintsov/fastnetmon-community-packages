@@ -170,6 +170,7 @@ jobs:
           command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN --name linux_systemd_container fedora_systemd /sbin/init
       - run: sudo docker ps
       - run: sudo docker exec -it linux_systemd_container systemctl status --no-pager
+      - run: sudo docker exec -it linux_systemd_container dnf clean all
       - run: sudo docker exec -it linux_systemd_container dnf install -y fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl enable fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
