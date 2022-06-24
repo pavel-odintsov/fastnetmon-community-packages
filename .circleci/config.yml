@@ -53,6 +53,7 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
       - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
+      - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon_api_client
   build_debian_bullseye_backports:
     machine:
       image: ubuntu-2004:current
