@@ -25,8 +25,8 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition << parameters.installer_arguments >>
-      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_api_client
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon --configuration_check
@@ -48,8 +48,8 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
-      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec -it linux_systemd_container ldd /usr/sbin/fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
       - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
@@ -72,8 +72,8 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
-      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec -it linux_systemd_container ldd /usr/sbin/fastnetmon
+      - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec -it linux_systemd_container ldd /usr/bin/fastnetmon_client
       - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
