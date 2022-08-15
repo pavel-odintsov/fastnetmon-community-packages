@@ -223,6 +223,9 @@ workflows:
           name: "Debian 11 dev"
           docker_image: debian:bullseye
           installer_arguments: "-developer_version"
+      - build_debian:
+          name: "Kali Linux Rolling"
+          docker_image: kalilinux/kali-rolling
       - build_ubuntu_1404:
           name: "Ubuntu 14.04"
       - build_debian:
@@ -324,6 +327,9 @@ workflows:
       - build_debian_bullseye_backports:
           name: "Debian 11 backports"
           docker_image: debian:bullseye
+      - build_debian:
+          name: "Kali Linux Rolling"
+          docker_image: kalilinux/kali-rolling
       - build_ubuntu_1404:
           name: "Ubuntu 14.04"
       - build_debian:
