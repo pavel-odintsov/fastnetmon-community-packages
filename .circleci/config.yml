@@ -396,5 +396,3 @@ workflows:
       - build_fedora:
           name: "Fedora Rawhide upstream"
           docker_image: fedora:rawhide
-
-
