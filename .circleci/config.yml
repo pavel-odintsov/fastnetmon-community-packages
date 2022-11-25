@@ -21,7 +21,7 @@ jobs:
           command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
       - run: sudo docker ps
       - run: sudo docker exec -it linux_systemd_container apt-get update
-      - run: sudo docker exec -it linux_systemd_container apt-get install -y wget
+      - run: sudo docker exec -it linux_systemd_container apt-get install -y --force-yes wget
       - run: sudo docker exec -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition << parameters.installer_arguments >>
