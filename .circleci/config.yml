@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build_debian:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -33,7 +33,7 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
   build_debian_upstream:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -56,7 +56,7 @@ jobs:
       - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon_api_client
   build_debian_bullseye_backports:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -114,7 +114,7 @@ jobs:
       - run: dpkg -l |grep fastnetmon
   build_centos:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -156,7 +156,7 @@ jobs:
       - run: /opt/fastnetmon/fastnetmon_client --help
   build_fedora:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
