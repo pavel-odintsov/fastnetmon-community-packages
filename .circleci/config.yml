@@ -385,9 +385,6 @@ workflows:
           docker_image: almalinux:9
           installer_arguments: "-developer_version"
       - build_fedora:
-          name: "Fedora 35 upstream"
-          docker_image: fedora:36
-      - build_fedora:
           name: "Fedora 36 upstream"
           docker_image: fedora:36
       - build_fedora:
