@@ -195,7 +195,7 @@ workflows:
       - build_debian:
           name: "Debian 8"
           docker_image: debian:jessie
-          wget_arguments: "--no-check-certificate"
+          wget_arguments: ""
       - build_debian:
           name: "Debian 9"
           docker_image: debian:stretch
@@ -260,7 +260,7 @@ workflows:
       - build_centos:
           name: "CentOS 7"
           docker_image: centos:centos7
-          wget_arguments: "--no-check-certificate"
+          wget_arguments: ""
       - build_centos:
           name: "CentOS 8"
           docker_image: almalinux:8
@@ -270,7 +270,7 @@ workflows:
       - build_centos:
           name: "CentOS 7 dev"
           docker_image: centos:centos7
-          wget_arguments: "--no-check-certificate"
+          wget_arguments: ""
           installer_arguments: "-developer_version"
       - build_centos:
           name: "CentOS 8 dev"
@@ -299,7 +299,7 @@ workflows:
       - build_debian:
           name: "Debian 8"
           docker_image: debian:jessie
-          wget_arguments: "--no-check-certificate"
+          wget_arguments: ""
       - build_debian:
           name: "Debian 9"
           docker_image: debian:stretch
@@ -364,7 +364,7 @@ workflows:
       - build_centos:
           name: "CentOS 7"
           docker_image: centos:centos7
-          wget_arguments: "--no-check-certificate"
+          wget_arguments: ""
       - build_centos:
           name: "CentOS 8"
           docker_image: almalinux:8
@@ -374,7 +374,7 @@ workflows:
       - build_centos:
           name: "CentOS 7 dev"
           docker_image: centos:centos7
-          wget_arguments: "--no-check-certificate"
+          wget_arguments: ""
           installer_arguments: "-developer_version"
       - build_centos:
           name: "CentOS 8 dev"
