@@ -180,216 +180,124 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --configuration_check
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
 
+# Declare jobs we will run for each commit and nightly
+common_jobs: &common_jobs
+    # We do not produce latest packages for it
+    - build_debian:
+        name: "Debian 8"
+        docker_image: debian:jessie
+        wget_arguments: ""
+    - build_debian:
+        name: "Debian 9"
+        docker_image: debian:stretch
+    - build_debian:
+        name: "Debian 10"
+        docker_image: debian:buster
+    - build_debian:
+        name: "Debian 11"
+        docker_image: debian:bullseye
+    - build_debian:
+        name: "Debian 9 dev"
+        docker_image: debian:stretch
+        installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Debian 10 dev"
+        docker_image: debian:buster
+        installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Debian 11 dev"
+        docker_image: debian:bullseye
+        installer_arguments: "-developer_version"
+    # We do not produce latest packages for it
+    - build_ubuntu_1404:
+        name: "Ubuntu 14.04"
+    - build_debian:
+        name: "Ubuntu 16.04"
+        docker_image: ubuntu:xenial
+    - build_debian:
+        name: "Ubuntu 18.04"
+        docker_image: ubuntu:bionic
+    - build_debian:
+        name: "Ubuntu 20.04"
+        docker_image: ubuntu:focal
+    - build_debian:
+        name: "Ubuntu 22.04"
+        docker_image: ubuntu:jammy
+    - build_debian:
+        name: "Ubuntu 16.04 dev"
+        docker_image: ubuntu:xenial
+        installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Ubuntu 18.04 dev"
+        docker_image: ubuntu:bionic
+        installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Ubuntu 20.04 dev"
+        docker_image: ubuntu:focal
+        installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Ubuntu 22.04 dev"
+        docker_image: ubuntu:jammy
+        installer_arguments: "-developer_version"
+    # We do not produce latest packages for it
+    - centos6
+    - build_centos:
+        name: "CentOS 7"
+        docker_image: centos:centos7
+        wget_arguments: ""
+    - build_centos:
+        name: "CentOS 8"
+        docker_image: almalinux:8
+    - build_centos:
+        name: "CentOS 9"
+        docker_image: almalinux:9
+    - build_centos:
+        name: "CentOS 7 dev"
+        docker_image: centos:centos7
+        wget_arguments: ""
+        installer_arguments: "-developer_version"
+    - build_centos:
+        name: "CentOS 8 dev"
+        docker_image: almalinux:8
+        installer_arguments: "-developer_version"
+    - build_centos:
+        name: "CentOS 9 dev"
+        docker_image: almalinux:9
+        installer_arguments: "-developer_version"
+    - debian10_upgrade_from_repo_version
+    - build_debian_upstream:
+        name: "Debian Sid Upstream"
+        docker_image: debian:sid
+    - build_debian_bullseye_backports:
+        name: "Debian 11 backports"
+        docker_image: debian:bullseye
+    - build_debian:
+        name: "Kali Linux Rolling"
+        docker_image: kalilinux/kali-rolling
+    - build_fedora:
+        name: "Fedora 36 upstream"
+        docker_image: fedora:36
+    - build_fedora:
+        name: "Fedora 37 upstream"
+        docker_image: fedora:37
+    - build_fedora:
+        name: "Fedora Rawhide upstream"
+        docker_image: fedora:rawhide
+
+# We have two different workflows to trigger same tasks on commit and nightly
 workflows:
   version: 2
   all_distros_nightly:
+    jobs:
+      *common_jobs
     triggers:
       - schedule:
           cron: "30 2 * * *"
           filters:
             branches:
               only:
-                - master
-    jobs:
-      - debian10_upgrade_from_repo_version
-      - build_debian:
-          name: "Debian 8"
-          docker_image: debian:jessie
-          wget_arguments: ""
-      - build_debian:
-          name: "Debian 9"
-          docker_image: debian:stretch
-      - build_debian:
-          name: "Debian 10"
-          docker_image: debian:buster
-      - build_debian:
-          name: "Debian 11"
-          docker_image: debian:bullseye
-      - build_debian:
-          name: "Debian 9 dev"
-          docker_image: debian:stretch
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Debian 10 dev"
-          docker_image: debian:buster
-          installer_arguments: "-developer_version"
-      - build_debian_upstream:
-          name: "Debian Sid Upstream"
-          docker_image: debian:sid
-      - build_debian_bullseye_backports:
-          name: "Debian 11 backports"
-          docker_image: debian:bullseye
-      - build_debian:
-          name: "Debian 11 dev"
-          docker_image: debian:bullseye
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Kali Linux Rolling"
-          docker_image: kalilinux/kali-rolling
-      - build_ubuntu_1404:
-          name: "Ubuntu 14.04"
-      - build_debian:
-          name: "Ubuntu 16.04"
-          docker_image: ubuntu:xenial
-      - build_debian:
-          name: "Ubuntu 18.04"
-          docker_image: ubuntu:bionic
-      - build_debian:
-          name: "Ubuntu 20.04"
-          docker_image: ubuntu:focal
-      - build_debian:
-          name: "Ubuntu 22.04"
-          docker_image: ubuntu:jammy
-      - build_debian:
-          name: "Ubuntu 16.04 dev"
-          docker_image: ubuntu:xenial
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Ubuntu 18.04 dev"
-          docker_image: ubuntu:bionic
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Ubuntu 20.04 dev"
-          docker_image: ubuntu:focal
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Ubuntu 22.04 dev"
-          docker_image: ubuntu:jammy
-          installer_arguments: "-developer_version"
-      - centos6
-      - build_centos:
-          name: "CentOS 7"
-          docker_image: centos:centos7
-          wget_arguments: ""
-      - build_centos:
-          name: "CentOS 8"
-          docker_image: almalinux:8
-      - build_centos:
-          name: "CentOS 9"
-          docker_image: almalinux:9
-      - build_centos:
-          name: "CentOS 7 dev"
-          docker_image: centos:centos7
-          wget_arguments: ""
-          installer_arguments: "-developer_version"
-      - build_centos:
-          name: "CentOS 8 dev"
-          docker_image: almalinux:8
-          installer_arguments: "-developer_version"
-      - build_centos:
-          name: "CentOS 9 dev"
-          docker_image: almalinux:9
-          installer_arguments: "-developer_version"
-      - build_fedora:
-          name: "Fedora 35 upstream"
-          docker_image: fedora:36
-      - build_fedora:
-          name: "Fedora 36 upstream"
-          docker_image: fedora:36
-      - build_fedora:
-          name: "Fedora 37 upstream"
-          docker_image: fedora:37
-      - build_fedora:
-          name: "Fedora Rawhide upstream"
-          docker_image: fedora:rawhide
-
+                - main
   all_distros:
     jobs:
-      - debian10_upgrade_from_repo_version
-      - build_debian:
-          name: "Debian 8"
-          docker_image: debian:jessie
-          wget_arguments: ""
-      - build_debian:
-          name: "Debian 9"
-          docker_image: debian:stretch
-      - build_debian:
-          name: "Debian 10"
-          docker_image: debian:buster
-      - build_debian:
-          name: "Debian 11"
-          docker_image: debian:bullseye
-      - build_debian:
-          name: "Debian 9 dev"
-          docker_image: debian:stretch
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Debian 10 dev"
-          docker_image: debian:buster
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Debian 11 dev"
-          docker_image: debian:bullseye
-          installer_arguments: "-developer_version"
-      - build_debian_upstream:
-          name: "Debian Sid Upstream"
-          docker_image: debian:sid
-      - build_debian_bullseye_backports:
-          name: "Debian 11 backports"
-          docker_image: debian:bullseye
-      - build_debian:
-          name: "Kali Linux Rolling"
-          docker_image: kalilinux/kali-rolling
-      - build_ubuntu_1404:
-          name: "Ubuntu 14.04"
-      - build_debian:
-          name: "Ubuntu 16.04"
-          docker_image: ubuntu:xenial
-      - build_debian:
-          name: "Ubuntu 18.04"
-          docker_image: ubuntu:bionic
-      - build_debian:
-          name: "Ubuntu 20.04"
-          docker_image: ubuntu:focal
-      - build_debian:
-          name: "Ubuntu 22.04"
-          docker_image: ubuntu:jammy
-      - build_debian:
-          name: "Ubuntu 16.04 dev"
-          docker_image: ubuntu:xenial
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Ubuntu 18.04 dev"
-          docker_image: ubuntu:bionic
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Ubuntu 20.04 dev"
-          docker_image: ubuntu:focal
-          installer_arguments: "-developer_version"
-      - build_debian:
-          name: "Ubuntu 22.04 dev"
-          docker_image: ubuntu:jammy
-          installer_arguments: "-developer_version"
-      - centos6
-      - build_centos:
-          name: "CentOS 7"
-          docker_image: centos:centos7
-          wget_arguments: ""
-      - build_centos:
-          name: "CentOS 8"
-          docker_image: almalinux:8
-      - build_centos:
-          name: "CentOS 9"
-          docker_image: almalinux:9
-      - build_centos:
-          name: "CentOS 7 dev"
-          docker_image: centos:centos7
-          wget_arguments: ""
-          installer_arguments: "-developer_version"
-      - build_centos:
-          name: "CentOS 8 dev"
-          docker_image: almalinux:8
-          installer_arguments: "-developer_version"
-      - build_centos:
-          name: "CentOS 9 dev"
-          docker_image: almalinux:9
-          installer_arguments: "-developer_version"
-      - build_fedora:
-          name: "Fedora 36 upstream"
-          docker_image: fedora:36
-      - build_fedora:
-          name: "Fedora 37 upstream"
-          docker_image: fedora:37
-      - build_fedora:
-          name: "Fedora Rawhide upstream"
-          docker_image: fedora:rawhide
+      *common_jobs
+
