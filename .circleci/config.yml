@@ -296,7 +296,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - master
   all_distros:
     jobs:
       *common_jobs
