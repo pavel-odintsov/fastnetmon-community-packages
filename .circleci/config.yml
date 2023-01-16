@@ -187,6 +187,7 @@ jobs:
         type: string
     steps:
       - run: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
+      - run: sudo docker exec --env -it linux_systemd_container dnf install -y dnf-plugins-core
       - run: sudo docker exec --env -it linux_systemd_container dnf config-manager --set-enabled crb
       - run: sudo docker exec --env -it linux_systemd_container dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm 
       - run: sudo docker exec --env -it linux_systemd_container dnf install -y fastnetmon 
