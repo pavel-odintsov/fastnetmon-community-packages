@@ -181,7 +181,7 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
   build_centos_epel:
     machine:
-      image: ubuntu-2204:current
+      image: ubuntu-2004:current
     parameters:
       docker_image:
         type: string
