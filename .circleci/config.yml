@@ -24,7 +24,8 @@ jobs:
           name: "Deploy new systemd enabled image"
           command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
       - run: sudo docker ps
-      - run: sudo docker exec -it linux_systemd_container << parameters.prepare_command >>
+      - run: sudo docker exec -it linux_systemd_container cat /etc/sources.list
+      - run: << parameters.prepare_command >>
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y --force-yes wget
       - run: sudo docker exec -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
