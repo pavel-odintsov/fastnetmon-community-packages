@@ -248,6 +248,9 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Ubuntu 22.04"
         docker_image: ubuntu:jammy
+      - build_debian:
+        name: "Ubuntu 22.10"
+        docker_image: ubuntu:kinetic
     - build_debian:
         name: "Ubuntu 16.04 dev"
         docker_image: ubuntu:xenial
@@ -263,6 +266,10 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Ubuntu 22.04 dev"
         docker_image: ubuntu:jammy
+        installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Ubuntu 22.10 dev"
+        docker_image: ubuntu:kinetic
         installer_arguments: "-developer_version"
     # We do not produce latest packages for it
     - centos6
