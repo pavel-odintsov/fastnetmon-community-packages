@@ -214,7 +214,7 @@ common_jobs: &common_jobs
         docker_image: debian:jessie
         wget_arguments: ""
         # Packages for jessie were removed from normal Ubuntu repositories and we need to change paths to archive
-        prepare_command: "echo 'deb http://archive.debian.org/debian/ jessie contrib main non-free' | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list"
+        prepare_command: echo -e "deb http://archive.debian.org/debian/ jessie contrib main non-free\ndeb http://archive.debian.org/debian-security/ jessie/updates main contrib non-free" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list
     - build_debian:
         name: "Debian 9"
         docker_image: debian:stretch
