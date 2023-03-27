@@ -250,7 +250,7 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Ubuntu 22.04"
         docker_image: ubuntu:jammy
-      - build_debian:
+    - build_debian:
         name: "Ubuntu 22.10"
         docker_image: ubuntu:kinetic
     - build_debian:
