@@ -20,6 +20,13 @@ jobs:
       fastnetmon_daemon_path:
         type: string
         default: "/usr/bin/fastnetmon"
+      resource_class:
+        type: string
+        default: medium
+      installer_file_name:
+        type: string
+        default: installer
+    resource_class: << parameters.resource_class >>
     steps:
       - run:
           name: "Prepare image with systemd enabled"
@@ -32,7 +39,7 @@ jobs:
       - run: << parameters.prepare_command >>
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y --force-yes wget
-      - run: sudo docker exec -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition << parameters.installer_arguments >>
       - run: sudo docker exec -it linux_systemd_container ldd << parameters.fastnetmon_daemon_path >> 
@@ -275,6 +282,12 @@ common_jobs: &common_jobs
         name: "Ubuntu 22.04 dev"
         docker_image: ubuntu:jammy
         installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Ubuntu 22.04 dev ARM64"
+        docker_image: ubuntu:jammy
+        installer_arguments: "-developer_version"
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
     - build_debian:
         name: "Ubuntu 22.10 dev"
         docker_image: ubuntu:kinetic
