@@ -140,10 +140,17 @@ jobs:
       installer_arguments:
         type: string
         default: ""
+      resource_class:
+        type: string
+        default: medium
+      installer_file_name:
+        type: string
+        default: installer
+    resource_class: << parameters.resource_class >>
     steps:
       - run: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
       - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
-      - run: sudo docker exec --env -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec --env -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition << parameters.installer_arguments >>
       - run: sudo docker exec --env -it linux_systemd_container systemctl status fastnetmon --no-pager
@@ -339,9 +346,21 @@ common_jobs: &common_jobs
         docker_image: almalinux:8
         installer_arguments: "-developer_version"
     - build_centos:
+        name: "CentOS 8 dev ARM64"
+        docker_image: almalinux:8
+        installer_arguments: "-developer_version"
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
+    - build_centos:
         name: "CentOS 9 dev"
         docker_image: almalinux:9
         installer_arguments: "-developer_version"
+    - build_centos:
+        name: "CentOS 9 dev ARM64"
+        docker_image: almalinux:9
+        installer_arguments: "-developer_version"
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
     - debian10_upgrade_from_repo_version
     - build_debian_upstream:
         name: "Debian Sid Upstream"
