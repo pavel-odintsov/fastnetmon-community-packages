@@ -236,6 +236,9 @@ common_jobs: &common_jobs
         name: "Debian 11"
         docker_image: debian:bullseye
     - build_debian:
+        name: "Debian 12"
+        docker_image: debian:bookworm
+    - build_debian:
         name: "Debian 9 dev"
         docker_image: debian:stretch
         installer_arguments: "-developer_version"
@@ -246,6 +249,10 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Debian 11 dev"
         docker_image: debian:bullseye
+        installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Debian 12 dev"
+        docker_image: debian:bookworm
         installer_arguments: "-developer_version"
     # We do not produce latest packages for it
     - build_ubuntu_1404:
