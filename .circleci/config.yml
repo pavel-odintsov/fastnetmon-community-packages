@@ -250,9 +250,21 @@ common_jobs: &common_jobs
         docker_image: debian:bullseye
         installer_arguments: "-developer_version"
     - build_debian:
+        name: "Debian 11 dev ARM64"
+        docker_image: debian:bullseye
+        installer_arguments: "-developer_version"
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
+    - build_debian:
         name: "Debian 12 dev"
         docker_image: debian:bookworm
         installer_arguments: "-developer_version"
+    - build_debian:
+        name: "Debian 12 dev ARM64"
+        docker_image: debian:bookworm
+        installer_arguments: "-developer_version"
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
     # We do not produce latest packages for it
     - build_ubuntu_1404:
         name: "Ubuntu 14.04"
