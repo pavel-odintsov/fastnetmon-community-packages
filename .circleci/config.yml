@@ -279,6 +279,12 @@ common_jobs: &common_jobs
         docker_image: ubuntu:focal
         installer_arguments: "-developer_version"
     - build_debian:
+        name: "Ubuntu 20.04 dev ARM64"
+        docker_image: ubuntu:focal
+        installer_arguments: "-developer_version"
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
+    - build_debian:
         name: "Ubuntu 22.04 dev"
         docker_image: ubuntu:jammy
         installer_arguments: "-developer_version"
