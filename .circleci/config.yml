@@ -246,7 +246,7 @@ common_jobs: &common_jobs
         docker_image: debian:stretch
         # Packages for stretch were removed from normal Ubuntu repositories and we need to change paths to archive
         prepare_command: echo -e "deb http://archive.debian.org/debian/ stretch contrib main non-free\ndeb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list
-        systemd_prepare_command: echo 'deb http://archive.debian.org/debian/ stretch contrib main non-free\n' | tee /etc/apt/sources.list; echo 'deb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free' | tee -a /etc/apt/sources.list
+        systemd_prepare_command: echo 'deb http://archive.debian.org/debian/ stretch contrib main non-free' | tee /etc/apt/sources.list; echo 'deb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free' | tee  /etc/apt/sources.list.d/updates.list
     - build_debian:
         name: "Debian 10"
         docker_image: debian:buster
