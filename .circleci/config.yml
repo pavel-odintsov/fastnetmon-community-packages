@@ -34,7 +34,9 @@ jobs:
     steps:
       - run:
           name: "Prepare image with systemd enabled"
-          command: echo -e "FROM << parameters.docker_image >>\nENV DEBIAN_FRONTEND noninteractive\nRUN << parameters.systemd_prepare_command >>; apt-get update; apt-get install -y systemd systemd-sysv\nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag debian_systemd -
+          command: echo -e "FROM << parameters.docker_image >>\nENV DEBIAN_FRONTEND noninteractive\nRUN << parameters.systemd_prepare_command >>; apt-get update; apt-get install -y systemd systemd-sysv\nCMD [\"/lib/systemd/systemd\"]" > Dockerfile
+      - run: cat Dockerfile
+      - run: cat Dockerfile | sudo docker build --tag debian_systemd -
       - run:
           name: "Deploy new systemd enabled image"
           command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
