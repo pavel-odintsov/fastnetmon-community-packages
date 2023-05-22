@@ -387,11 +387,11 @@ common_jobs: &common_jobs
         name: "Kali Linux Rolling"
         docker_image: kalilinux/kali-rolling
     - build_fedora:
-        name: "Fedora 36 upstream"
-        docker_image: fedora:36
-    - build_fedora:
         name: "Fedora 37 upstream"
         docker_image: fedora:37
+    - build_fedora:
+        name: "Fedora 38 upstream"
+        docker_image: fedora:38
     - build_fedora:
         name: "Fedora Rawhide upstream"
         docker_image: fedora:rawhide
