@@ -241,6 +241,7 @@ common_jobs: &common_jobs
         wget_arguments: ""
         # Packages for jessie were removed from normal Ubuntu repositories and we need to change paths to archive
         prepare_command: echo -e "deb http://archive.debian.org/debian/ jessie contrib main non-free\ndeb http://archive.debian.org/debian-security/ jessie/updates main contrib non-free" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list
+    # We do not produce latest packages for it
     - build_debian:
         name: "Debian 9"
         docker_image: debian:stretch
@@ -256,13 +257,6 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Debian 12"
         docker_image: debian:bookworm
-    - build_debian:
-        name: "Debian 9 dev"
-        docker_image: debian:stretch
-        installer_arguments: "-developer_version"
-        # Packages for stretch were removed from normal Ubuntu repositories and we need to change paths to archive
-        prepare_command: echo -e "deb http://archive.debian.org/debian/ stretch contrib main non-free\ndeb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list
-        systemd_prepare_command: echo 'deb http://archive.debian.org/debian/ stretch contrib main non-free' | tee /etc/apt/sources.list; echo 'deb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free' | tee  /etc/apt/sources.list.d/updates.list
     - build_debian:
         name: "Debian 10 dev"
         docker_image: debian:buster
