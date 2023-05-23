@@ -367,8 +367,20 @@ common_jobs: &common_jobs
         name: "CentOS 8"
         docker_image: almalinux:8
     - build_centos:
+        name: "CentOS 8 ARM64"
+        docker_image: almalinux:8
+        installer_arguments: ""
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
+    - build_centos:
         name: "CentOS 9"
         docker_image: almalinux:9
+    - build_centos:
+        name: "CentOS 9 ARM64"
+        docker_image: almalinux:9
+        installer_arguments: ""
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
     - build_centos:
         name: "CentOS 7 dev"
         docker_image: centos:centos7
