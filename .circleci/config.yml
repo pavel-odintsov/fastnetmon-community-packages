@@ -306,8 +306,20 @@ common_jobs: &common_jobs
         name: "Ubuntu 20.04"
         docker_image: ubuntu:focal
     - build_debian:
+        name: "Ubuntu 20.04 ARM64"
+        docker_image: ubuntu:focal
+        installer_arguments: ""
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
+    - build_debian:
         name: "Ubuntu 22.04"
         docker_image: ubuntu:jammy
+    - build_debian:
+        name: "Ubuntu 22.04 ARM64"
+        docker_image: ubuntu:jammy
+        installer_arguments: ""
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
     - build_debian:
         name: "Ubuntu 22.10"
         docker_image: ubuntu:kinetic
