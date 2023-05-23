@@ -255,8 +255,20 @@ common_jobs: &common_jobs
         name: "Debian 11"
         docker_image: debian:bullseye
     - build_debian:
+        name: "Debian 11 ARM64"
+        docker_image: debian:bullseye
+        installer_arguments: ""
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
+    - build_debian:
         name: "Debian 12"
         docker_image: debian:bookworm
+    - build_debian:
+        name: "Debian 12 ARM64"
+        docker_image: debian:bookworm
+        installer_arguments: ""
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
     - build_debian:
         name: "Debian 10 dev"
         docker_image: debian:buster
