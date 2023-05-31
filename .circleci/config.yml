@@ -270,25 +270,25 @@ common_jobs: &common_jobs
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
-        name: "Debian 10 dev"
+        name: "Debian 10 stable"
         docker_image: debian:buster
         installer_arguments: "-stable_version"
     - build_debian:
-        name: "Debian 11 dev"
+        name: "Debian 11 stable"
         docker_image: debian:bullseye
         installer_arguments: "-stable_version"
     - build_debian:
-        name: "Debian 11 dev ARM64"
+        name: "Debian 11 stable ARM64"
         docker_image: debian:bullseye
         installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
-        name: "Debian 12 dev"
+        name: "Debian 12 stable"
         docker_image: debian:bookworm
         installer_arguments: "-stable_version"
     - build_debian:
-        name: "Debian 12 dev ARM64"
+        name: "Debian 12 stable ARM64"
         docker_image: debian:bookworm
         installer_arguments: "-stable_version"
         resource_class: "arm.large"
@@ -325,35 +325,35 @@ common_jobs: &common_jobs
         docker_image: ubuntu:kinetic
         fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
     - build_debian:
-        name: "Ubuntu 16.04 dev"
+        name: "Ubuntu 16.04 stable"
         docker_image: ubuntu:xenial
         installer_arguments: "-stable_version"
     - build_debian:
-        name: "Ubuntu 18.04 dev"
+        name: "Ubuntu 18.04 stable"
         docker_image: ubuntu:bionic
         installer_arguments: "-stable_version"
     - build_debian:
-        name: "Ubuntu 20.04 dev"
+        name: "Ubuntu 20.04 stable"
         docker_image: ubuntu:focal
         installer_arguments: "-stable_version"
     - build_debian:
-        name: "Ubuntu 20.04 dev ARM64"
+        name: "Ubuntu 20.04 stable ARM64"
         docker_image: ubuntu:focal
         installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
-        name: "Ubuntu 22.04 dev"
+        name: "Ubuntu 22.04 stable"
         docker_image: ubuntu:jammy
         installer_arguments: "-stable_version"
     - build_debian:
-        name: "Ubuntu 22.04 dev ARM64"
+        name: "Ubuntu 22.04 stable ARM64"
         docker_image: ubuntu:jammy
         installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
-        name: "Ubuntu 22.10 dev"
+        name: "Ubuntu 22.10 stable"
         docker_image: ubuntu:kinetic
         installer_arguments: "-stable_version"
         fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
@@ -382,26 +382,26 @@ common_jobs: &common_jobs
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_centos:
-        name: "CentOS 7 dev"
+        name: "CentOS 7 stable"
         docker_image: centos:centos7
         wget_arguments: ""
         installer_arguments: "-stable_version"
     - build_centos:
-        name: "CentOS 8 dev"
+        name: "CentOS 8 stable"
         docker_image: almalinux:8
         installer_arguments: "-stable_version"
     - build_centos:
-        name: "CentOS 8 dev ARM64"
+        name: "CentOS 8 stable ARM64"
         docker_image: almalinux:8
         installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_centos:
-        name: "CentOS 9 dev"
+        name: "CentOS 9 stable"
         docker_image: almalinux:9
         installer_arguments: "-stable_version"
     - build_centos:
-        name: "CentOS 9 dev ARM64"
+        name: "CentOS 9 stable ARM64"
         docker_image: almalinux:9
         installer_arguments: "-stable_version"
         resource_class: "arm.large"
