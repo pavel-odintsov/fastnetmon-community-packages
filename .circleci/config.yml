@@ -272,25 +272,25 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Debian 10 dev"
         docker_image: debian:buster
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_debian:
         name: "Debian 11 dev"
         docker_image: debian:bullseye
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_debian:
         name: "Debian 11 dev ARM64"
         docker_image: debian:bullseye
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
         name: "Debian 12 dev"
         docker_image: debian:bookworm
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_debian:
         name: "Debian 12 dev ARM64"
         docker_image: debian:bookworm
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     # We do not produce latest packages for it
@@ -327,35 +327,35 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Ubuntu 16.04 dev"
         docker_image: ubuntu:xenial
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_debian:
         name: "Ubuntu 18.04 dev"
         docker_image: ubuntu:bionic
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_debian:
         name: "Ubuntu 20.04 dev"
         docker_image: ubuntu:focal
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_debian:
         name: "Ubuntu 20.04 dev ARM64"
         docker_image: ubuntu:focal
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
         name: "Ubuntu 22.04 dev"
         docker_image: ubuntu:jammy
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_debian:
         name: "Ubuntu 22.04 dev ARM64"
         docker_image: ubuntu:jammy
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
         name: "Ubuntu 22.10 dev"
         docker_image: ubuntu:kinetic
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
         fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
     # We do not produce latest packages for it
     - centos6
@@ -385,25 +385,25 @@ common_jobs: &common_jobs
         name: "CentOS 7 dev"
         docker_image: centos:centos7
         wget_arguments: ""
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_centos:
         name: "CentOS 8 dev"
         docker_image: almalinux:8
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_centos:
         name: "CentOS 8 dev ARM64"
         docker_image: almalinux:8
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_centos:
         name: "CentOS 9 dev"
         docker_image: almalinux:9
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
     - build_centos:
         name: "CentOS 9 dev ARM64"
         docker_image: almalinux:9
-        installer_arguments: "-developer_version"
+        installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - debian10_upgrade_from_repo_version
