@@ -87,6 +87,8 @@ jobs:
     parameters:
       docker_image:
         type: string
+      debian_codename:
+        type: string
     steps:
       - run:
           name: "Prepare image with systemd enabled"
