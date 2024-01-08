@@ -421,6 +421,9 @@ common_jobs: &common_jobs
     - build_debian_upstream:
         name: "Debian Sid Upstream"
         docker_image: debian:sid
+    - build_debian_upstream:
+        name: "Debian Bookworm 12 Upstream"
+        docker_image: debian:bookworm
     - build_debian_backports:
         name: "Debian 11 backports"
         docker_image: debian:bullseye
