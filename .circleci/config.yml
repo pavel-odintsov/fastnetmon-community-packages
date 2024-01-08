@@ -332,8 +332,8 @@ common_jobs: &common_jobs
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
-        name: "Ubuntu 22.10"
-        docker_image: ubuntu:kinetic
+        name: "Ubuntu 23.10"
+        docker_image: ubuntu:mantic
         fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
     - build_debian:
         name: "Ubuntu 16.04 stable"
@@ -364,8 +364,8 @@ common_jobs: &common_jobs
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
-        name: "Ubuntu 22.10 stable"
-        docker_image: ubuntu:kinetic
+        name: "Ubuntu 23.10 stable"
+        docker_image: ubuntu:mantic
         installer_arguments: "-stable_version"
         fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
     # We do not produce latest packages for it
