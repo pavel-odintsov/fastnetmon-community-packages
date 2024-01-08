@@ -81,7 +81,7 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container /usr/sbin/fastnetmon --version
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
       - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon_api_client
-  build_debian_bullseye_backports:
+  build_debian_backports:
     machine:
       image: ubuntu-2004:current
     parameters:
@@ -95,7 +95,7 @@ jobs:
           name: "Deploy new systemd enabled image"
           command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
       - run: sudo docker ps
-      - run: echo "deb http://deb.debian.org/debian bullseye-backports main" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list.d/backports.list
+      - run: echo "deb http://deb.debian.org/debian << parameters.debian_codename >>-backports main" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list.d/backports.list
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
@@ -419,9 +419,14 @@ common_jobs: &common_jobs
     - build_debian_upstream:
         name: "Debian Sid Upstream"
         docker_image: debian:sid
-    - build_debian_bullseye_backports:
+    - build_debian_backports:
         name: "Debian 11 backports"
         docker_image: debian:bullseye
+        debian_codename: "bullseye"
+    - build_debian_backports:
+        name: "Debian 12 backports"
+        docker_image: debian:bookworm
+        debian_codename: "bookworm"
     - build_debian:
         name: "Kali Linux Rolling"
         docker_image: kalilinux/kali-rolling
