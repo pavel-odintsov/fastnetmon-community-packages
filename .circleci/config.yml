@@ -99,7 +99,7 @@ jobs:
       - run: sudo docker ps
       - run: echo "deb http://deb.debian.org/debian << parameters.debian_codename >>-backports main" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list.d/backports.list
       - run: sudo docker exec -it linux_systemd_container apt-get update
-      - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
+      - run: sudo docker exec -it linux_systemd_container apt-get install -t "<< parameters.debian_codename >>-backports" -y fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl start fastnetmon
       - run: sudo docker exec -it linux_systemd_container ldd /usr/sbin/fastnetmon
       - run: sudo docker exec -it linux_systemd_container systemctl status fastnetmon --no-pager
