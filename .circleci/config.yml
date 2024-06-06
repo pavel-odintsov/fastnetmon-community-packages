@@ -1,8 +1,6 @@
 version: 2.1
 jobs:
   build_debian:
-    machine:
-      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -30,6 +28,11 @@ jobs:
       installer_file_name:
         type: string
         default: installer
+      machine_image:
+        type: string
+        default: "ubuntu-2204:current"
+    machine:
+      image: << parameters.machine_image >>
     resource_class: << parameters.resource_class >>
     steps:
       # Prepare image with systemd enabled
@@ -145,8 +148,6 @@ jobs:
       - run: /usr/bin/fastnetmon_client --help
       - run: dpkg -l |grep fastnetmon
   build_centos:
-    machine:
-      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -162,6 +163,11 @@ jobs:
       installer_file_name:
         type: string
         default: installer
+      machine_image:
+        type: string
+        default: "ubuntu-2204:current"
+    machine:
+      image: << parameters.machine_image >>
     resource_class: << parameters.resource_class >>
     steps:
       - run: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
@@ -310,6 +316,8 @@ common_jobs: &common_jobs
     - build_debian:
         name: "Ubuntu 16.04"
         docker_image: ubuntu:xenial
+        # We use older verison as it has support for Cgroups v1
+        machine_image: "ubuntu-2004:current"
     - build_debian:
         name: "Ubuntu 18.04"
         docker_image: ubuntu:bionic
@@ -339,6 +347,8 @@ common_jobs: &common_jobs
         name: "Ubuntu 16.04 stable"
         docker_image: ubuntu:xenial
         installer_arguments: "-stable_version"
+        # We use older verison as it has support for Cgroups v1
+        machine_image: "ubuntu-2004:current"
     - build_debian:
         name: "Ubuntu 18.04 stable"
         docker_image: ubuntu:bionic
@@ -374,6 +384,8 @@ common_jobs: &common_jobs
         name: "CentOS 7"
         docker_image: centos:centos7
         wget_arguments: ""
+        # We use older verison as it has support for Cgroups v1
+        machine_image: "ubuntu-2004:current"
     - build_centos:
         name: "CentOS 8"
         docker_image: almalinux:8
@@ -397,6 +409,8 @@ common_jobs: &common_jobs
         docker_image: centos:centos7
         wget_arguments: ""
         installer_arguments: "-stable_version"
+        # We use older verison as it has support for Cgroups v1
+        machine_image: "ubuntu-2004:current"
     - build_centos:
         name: "CentOS 8 stable"
         docker_image: almalinux:8
