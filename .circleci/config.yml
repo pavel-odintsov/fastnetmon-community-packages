@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build_debian:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -42,7 +42,7 @@ jobs:
       - run: cat Dockerfile | sudo docker build --tag debian_systemd -
       - run:
           name: "Deploy new systemd enabled image"
-          command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
+          command: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
       - run: sudo docker ps
       - run: << parameters.prepare_command >>
       - run: sudo docker exec -it linux_systemd_container apt-get update
@@ -59,7 +59,7 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
   build_debian_upstream:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -69,7 +69,7 @@ jobs:
           command: echo -e "FROM << parameters.docker_image >>\nENV DEBIAN_FRONTEND noninteractive\nRUN apt-get update; apt-get install -y systemd systemd-sysv; \nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag debian_systemd -
       - run:
           name: "Deploy new systemd enabled image"
-          command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
+          command: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
       - run: sudo docker ps
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y fastnetmon
@@ -83,7 +83,7 @@ jobs:
       - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon_api_client
   build_debian_backports:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -95,7 +95,7 @@ jobs:
           command: echo -e "FROM << parameters.docker_image >>\nENV DEBIAN_FRONTEND noninteractive\nRUN apt-get update; apt-get install -y systemd systemd-sysv; \nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag debian_systemd -
       - run:
           name: "Deploy new systemd enabled image"
-          command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
+          command: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container debian_systemd /lib/systemd/systemd
       - run: sudo docker ps
       - run: echo "deb http://deb.debian.org/debian << parameters.debian_codename >>-backports main" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list.d/backports.list
       - run: sudo docker exec -it linux_systemd_container apt-get update
@@ -146,7 +146,7 @@ jobs:
       - run: dpkg -l |grep fastnetmon
   build_centos:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -164,7 +164,7 @@ jobs:
         default: installer
     resource_class: << parameters.resource_class >>
     steps:
-      - run: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
+      - run: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
       - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
       - run: sudo docker exec --env -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
@@ -197,7 +197,7 @@ jobs:
       - run: /opt/fastnetmon/fastnetmon_client --help
   build_fedora:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
@@ -207,7 +207,7 @@ jobs:
           command: echo -e "FROM << parameters.docker_image >>\nRUN dnf install -y systemd; \nCMD [\"/lib/systemd/systemd\"]" | sudo docker build --tag fedora_systemd - 
       - run:
           name: "Start Docker with systemd enabled in container"
-          command: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN --name linux_systemd_container fedora_systemd /sbin/init
+          command: sudo docker run -d --privileged --cap-add SYS_ADMIN --name linux_systemd_container fedora_systemd /sbin/init
       - run: sudo docker ps
       - run: sudo docker exec -it linux_systemd_container systemctl status --no-pager
       - run: sudo docker exec -it linux_systemd_container dnf clean all
@@ -223,12 +223,12 @@ jobs:
       - run: sudo docker exec -it linux_systemd_container /usr/bin/fastnetmon_client --help
   build_centos_epel:
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2204:current
     parameters:
       docker_image:
         type: string
     steps:
-      - run: sudo docker run -d -v /sys/fs/cgroup/:/sys/fs/cgroup:ro --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
+      - run: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
       - run: sudo docker exec --env -it linux_systemd_container dnf install -y dnf-plugins-core
       - run: sudo docker exec --env -it linux_systemd_container dnf config-manager --set-enabled crb
       - run: sudo docker exec --env -it linux_systemd_container dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm 
