@@ -187,13 +187,13 @@ jobs:
       # We use older verison as it has support for Cgroups v1
       image: "ubuntu-2004:current"
     steps:
-      - run: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
+      - run: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container centos:centos7 /sbin/init
       # CentOS 7 is EOL and we need to fix repos to be able to install anything
       - run: sudo docker exec --env -it linux_systemd_container sed -i '/mirrorlist/d' /etc/yum.repos.d/CentOS-Base.repo
       - run: sudo docker exec --env -it linux_systemd_container sed -i 's/#baseurl/baseurl/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sudo docker exec --env -it linux_systemd_container sed -i 's/mirror.centos.org/vault.centos.org/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
-      - run: sudo docker exec --env -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec --env -it linux_systemd_container wget https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition -stable_version
       - run: sudo docker exec --env -it linux_systemd_container systemctl status fastnetmon --no-pager
