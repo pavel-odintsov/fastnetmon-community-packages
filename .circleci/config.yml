@@ -193,7 +193,7 @@ jobs:
       - run: sudo docker exec --env -it linux_systemd_container sed -i 's/#baseurl/baseurl/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sudo docker exec --env -it linux_systemd_container sed -i 's/mirror.centos.org/vault.centos.org/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
-      - run: sudo docker exec --env -it linux_systemd_container wget https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec --env -it linux_systemd_container wget https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition -stable_version
       - run: sudo docker exec --env -it linux_systemd_container systemctl status fastnetmon --no-pager
