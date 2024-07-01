@@ -195,7 +195,7 @@ jobs:
       - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
       - run: sudo docker exec --env -it linux_systemd_container wget https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
-      - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition -stable_version
+      - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition
       - run: sudo docker exec --env -it linux_systemd_container systemctl status fastnetmon --no-pager
       - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon
       - run: sudo docker exec --env -it linux_systemd_container ldd /usr/bin/fastnetmon_client
@@ -286,6 +286,7 @@ common_jobs: &common_jobs
         # Packages for stretch were removed from normal Ubuntu repositories and we need to change paths to archive
         prepare_command: echo -e "deb http://archive.debian.org/debian/ stretch contrib main non-free\ndeb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free" | sudo docker exec -i linux_systemd_container tee /etc/apt/sources.list
         systemd_prepare_command: echo 'deb http://archive.debian.org/debian/ stretch contrib main non-free' | tee /etc/apt/sources.list; echo 'deb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free' | tee  /etc/apt/sources.list.d/updates.list
+    # We do not produce latest packages for it
     - build_debian:
         name: "Debian 10"
         docker_image: debian:buster
@@ -307,10 +308,6 @@ common_jobs: &common_jobs
         installer_arguments: ""
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
-    - build_debian:
-        name: "Debian 10 stable"
-        docker_image: debian:buster
-        installer_arguments: "-stable_version"
     - build_debian:
         name: "Debian 11 stable"
         docker_image: debian:bullseye
@@ -334,11 +331,13 @@ common_jobs: &common_jobs
     # We do not produce latest packages for it
     - build_ubuntu_1404:
         name: "Ubuntu 14.04"
+    # We do not produce latest packages for it
     - build_debian:
         name: "Ubuntu 16.04"
         docker_image: ubuntu:xenial
         # We use older verison as it has support for Cgroups v1
         machine_image: "ubuntu-2004:current"
+     # We do not produce latest packages for it
     - build_debian:
         name: "Ubuntu 18.04"
         docker_image: ubuntu:bionic
@@ -370,20 +369,6 @@ common_jobs: &common_jobs
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
-        name: "Ubuntu 23.10"
-        docker_image: ubuntu:mantic
-        fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
-    - build_debian:
-        name: "Ubuntu 16.04 stable"
-        docker_image: ubuntu:xenial
-        installer_arguments: "-stable_version"
-        # We use older verison as it has support for Cgroups v1
-        machine_image: "ubuntu-2004:current"
-    - build_debian:
-        name: "Ubuntu 18.04 stable"
-        docker_image: ubuntu:bionic
-        installer_arguments: "-stable_version"
-    - build_debian:
         name: "Ubuntu 20.04 stable"
         docker_image: ubuntu:focal
         installer_arguments: "-stable_version"
@@ -403,13 +388,9 @@ common_jobs: &common_jobs
         installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
-    - build_debian:
-        name: "Ubuntu 23.10 stable"
-        docker_image: ubuntu:mantic
-        installer_arguments: "-stable_version"
-        fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
     # We do not produce latest packages for it
     - centos6
+    # We do not produce latest packages for it
     - centos7
     - build_centos:
         name: "CentOS 8"
