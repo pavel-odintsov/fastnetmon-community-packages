@@ -340,6 +340,15 @@ common_jobs: &common_jobs
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - build_debian:
+        name: "Ubuntu 24.04"
+        docker_image: ubuntu:noble
+    - build_debian:
+        name: "Ubuntu 24.04 ARM64"
+        docker_image: ubuntu:noble
+        installer_arguments: ""
+        resource_class: "arm.large"
+        installer_file_name: "installer_arm64"
+    - build_debian:
         name: "Ubuntu 23.10"
         docker_image: ubuntu:mantic
         fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
