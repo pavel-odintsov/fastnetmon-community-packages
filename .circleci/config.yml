@@ -410,7 +410,7 @@ common_jobs: &common_jobs
         fastnetmon_daemon_path: "/usr/sbin/fastnetmon"
     # We do not produce latest packages for it
     - centos6
-    - centos7:
+    - centos7
     - build_centos:
         name: "CentOS 8"
         docker_image: almalinux:8
