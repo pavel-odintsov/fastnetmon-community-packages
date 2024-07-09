@@ -50,7 +50,7 @@ jobs:
       - run: << parameters.prepare_command >>
       - run: sudo docker exec -it linux_systemd_container apt-get update
       - run: sudo docker exec -it linux_systemd_container apt-get install -y --force-yes wget
-      - run: sudo docker exec -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec -it linux_systemd_container wget << parameters.wget_arguments >> https://storage.googleapis.com/community-installer/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition << parameters.installer_arguments >>
       - run: sudo docker exec -it linux_systemd_container ldd << parameters.fastnetmon_daemon_path >> 
@@ -116,7 +116,7 @@ jobs:
     steps:
       - run: apt-get update
       - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: wget https://storage.googleapis.com/community-installer/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition
       - store_artifacts:
@@ -135,7 +135,7 @@ jobs:
       - run: apt-get update
       - run: apt-get install -y fastnetmon apt-utils
       - run: apt-get install -y wget
-      - run: wget https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: wget https://storage.googleapis.com/community-installer/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition
       - store_artifacts:
@@ -172,7 +172,7 @@ jobs:
     steps:
       - run: sudo docker run -d --privileged --cap-add SYS_ADMIN  --name linux_systemd_container << parameters.docker_image >> /sbin/init
       - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
-      - run: sudo docker exec --env -it linux_systemd_container wget << parameters.wget_arguments >> https://install.fastnetmon.com/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec --env -it linux_systemd_container wget << parameters.wget_arguments >> https://storage.googleapis.com/community-installer/<< parameters.installer_file_name >>?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition << parameters.installer_arguments >>
       - run: sudo docker exec --env -it linux_systemd_container systemctl status fastnetmon --no-pager
@@ -193,7 +193,7 @@ jobs:
       - run: sudo docker exec --env -it linux_systemd_container sed -i 's/#baseurl/baseurl/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sudo docker exec --env -it linux_systemd_container sed -i 's/mirror.centos.org/vault.centos.org/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sudo docker exec --env -it linux_systemd_container yum install -y wget
-      - run: sudo docker exec --env -it linux_systemd_container wget https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: sudo docker exec --env -it linux_systemd_container wget https://storage.googleapis.com/community-installer/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: sudo docker exec --env -it linux_systemd_container chmod +x installer
       - run: sudo docker exec --env "CI=true" -it linux_systemd_container ./installer -install_community_edition
       - run: sudo docker exec --env -it linux_systemd_container systemctl status fastnetmon --no-pager
@@ -211,7 +211,7 @@ jobs:
       - run: sed -i 's/#baseurl/baseurl/' /etc/yum.repos.d/CentOS-Base.repo
       - run: sed -i 's/mirror.centos.org/vault.centos.org/' /etc/yum.repos.d/CentOS-Base.repo
       - run: yum install -y wget
-      - run: wget https://install.fastnetmon.com/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
+      - run: wget https://storage.googleapis.com/community-installer/installer?random-argument-to-disable-caching-$CIRCLE_WORKFLOW_JOB_ID -Oinstaller
       - run: chmod +x installer
       - run: ./installer -install_community_edition
       - store_artifacts:
@@ -308,26 +308,6 @@ common_jobs: &common_jobs
         installer_arguments: ""
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
-    - build_debian:
-        name: "Debian 11 stable"
-        docker_image: debian:bullseye
-        installer_arguments: "-stable_version"
-    - build_debian:
-        name: "Debian 11 stable ARM64"
-        docker_image: debian:bullseye
-        installer_arguments: "-stable_version"
-        resource_class: "arm.large"
-        installer_file_name: "installer_arm64"
-    - build_debian:
-        name: "Debian 12 stable"
-        docker_image: debian:bookworm
-        installer_arguments: "-stable_version"
-    - build_debian:
-        name: "Debian 12 stable ARM64"
-        docker_image: debian:bookworm
-        installer_arguments: "-stable_version"
-        resource_class: "arm.large"
-        installer_file_name: "installer_arm64"
     # We do not produce latest packages for it
     - build_ubuntu_1404:
         name: "Ubuntu 14.04"
@@ -368,26 +348,6 @@ common_jobs: &common_jobs
         installer_arguments: ""
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
-    - build_debian:
-        name: "Ubuntu 20.04 stable"
-        docker_image: ubuntu:focal
-        installer_arguments: "-stable_version"
-    - build_debian:
-        name: "Ubuntu 20.04 stable ARM64"
-        docker_image: ubuntu:focal
-        installer_arguments: "-stable_version"
-        resource_class: "arm.large"
-        installer_file_name: "installer_arm64"
-    - build_debian:
-        name: "Ubuntu 22.04 stable"
-        docker_image: ubuntu:jammy
-        installer_arguments: "-stable_version"
-    - build_debian:
-        name: "Ubuntu 22.04 stable ARM64"
-        docker_image: ubuntu:jammy
-        installer_arguments: "-stable_version"
-        resource_class: "arm.large"
-        installer_file_name: "installer_arm64"
     # We do not produce latest packages for it
     - centos6
     # We do not produce latest packages for it
@@ -408,26 +368,6 @@ common_jobs: &common_jobs
         name: "CentOS 9 ARM64"
         docker_image: almalinux:9
         installer_arguments: ""
-        resource_class: "arm.large"
-        installer_file_name: "installer_arm64"
-    - build_centos:
-        name: "CentOS 8 stable"
-        docker_image: almalinux:8
-        installer_arguments: "-stable_version"
-    - build_centos:
-        name: "CentOS 8 stable ARM64"
-        docker_image: almalinux:8
-        installer_arguments: "-stable_version"
-        resource_class: "arm.large"
-        installer_file_name: "installer_arm64"
-    - build_centos:
-        name: "CentOS 9 stable"
-        docker_image: almalinux:9
-        installer_arguments: "-stable_version"
-    - build_centos:
-        name: "CentOS 9 stable ARM64"
-        docker_image: almalinux:9
-        installer_arguments: "-stable_version"
         resource_class: "arm.large"
         installer_file_name: "installer_arm64"
     - debian10_upgrade_from_repo_version
